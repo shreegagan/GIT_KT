@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/mentor-stylesheet.css}" />
+	<meta charset="ISO-8859-1">
+	<title>Mentor</title>
+</head>
+
+<body>
+
+	<div class="header">
+
+		<!-- Mentor Dashboard Header Content -->
+
+		<div>
+			<h3>Mentor Dashboard</h3>
+
+			<!-- Profile Section with Welcome Message -->
+			<div class="profile-section">
+				<h5>Welcome, <span th:text="${firstName}"></span>! </h5>
+			</div>
+		</div>
+		<div class="buttons-container">
+			<!-- Button to show pop-up -->
+			<button id="profileBtn" class="btn btn-outline-light">My Profile</button>
+		</div>
+	</div>
+
+
+	<!-- Main Content Section -->
+	<div class="main-content container-fluid">
+		<!-- Mentees List -->
+		<div class="mentees-list ">
+			<h4>My Mentees</h4>
+			<ul style="list-style-type: none; padding: 0;">
+				<!-- Loop through the mentees and display their names as links -->
+				<li th:each="mentee : ${mentees}">
+					<!-- Mentee Link with ID Data Attribute -->
+					<a href="#" class="mentee-link" th:data-menteeid="${mentee.id}"
+						style="text-decoration: none; align-items: center;">
+						<!-- Mentee Profile Picture -->
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8AJM9wkP__z2M-hovSAWcTb_9XJ6smy3NKw&usqp=CAU"
+							alt="Mentee Profile Pic">
+
+						<span th:text="${mentee.firstName + ' ' + mentee.lastName}"></span>
+
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Mentee Details Container Section -->
+		<div id="menteeDetailsContainer" class="mentee-details" style="display: none;">
+			<!-- Mentee Information Section -->
+			<div class="menteeInfo">
+
+				<!-- Mentee Profile Picture -->
+				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8AJM9wkP__z2M-hovSAWcTb_9XJ6smy3NKw&usqp=CAU"
+					id="menteeProfilePic"
+					style="width: 100px; height: 100px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px;"
+					alt="profile picture">
+
+				<!-- Mentee Information Fields -->
+				<p id="menteeFirstName"></p>
+				<p id="menteeLastName"></p>
+				<p id="menteeEmail"></p>
+				<p id="menteeDesignation"></p>
+
+				<!--displaying OKRs-->
+				<div id="objectivesContainer"></div>
+
+				<!-- Additional Box Inside -->
+				<div>
+
+					<!-- Additional Box Content -->
+					<!-- ADD OKRs Button -->
+					<button id="addOKRsBtn" class="btn btn-primary" onclick="openOKRsPopup()">ADD OKRs</button>
+
+					<!-- The Modal for Objectives and Key Results -->
+					<!-- ADD OKRs Popup -->
+					<div id="okrsModal" class="okrs-modal" style="display: none;">
+						<div class="profile-info">
+							<button id="okrsModalCloseBtn" class="close btn btn-sm btn-light"
+								style="position: absolute; top: 10px; right: 10px;">&times;</button>
+							<h2>Add OKRs for Mentee</h2>
+							<form th:action="@{/save}" method="post">
+								<div class="okrs-form-group">
+									<label class="okr-label" for="objective">Objective:</label>
+									<input type="text" id="objective" name="objective" class="form-control okr-input"
+										required>
+									<input type="hidden" name="menteeId" value="">
+								</div>
+								<div class="okrs-form-group">
+									<label class="okr-label" for="keyResult1">Key Result 1:</label>
+									<input type="text" id="keyResult1" name="keyResult1" class="form-control okr-input"
+										required>
+								</div>
+								<div class="okrs-form-group">
+									<label class="okr-label" for="keyResult2">Key Result 2:</label>
+									<input type="text" id="keyResult2" name="keyResult2" class="form-control okr-input"
+										required>
+								</div>
+								<button type="submit" class="btn btn-success">Save Okrs</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="blurBackgroundOKRs" class="blur-background" style="display: none;"></div>
+
+
+			<div id="okrsModal" class="okrs-modal blur" style="display: none;">
+			</div>
+
+		</div>
+	</div>
+
+
+	<div id="myProfile" class="profile" th:each="e : ${mentor}">
+
+		<!-- Profile information -->
+		<div class="profile-info" style="padding: 10px; width: 20%;">
+
+			<!--close button-->
+			<button class="close btn btn-sm btn-light" style="position: absolute; top: 0; right: 0;">&times;</button>
+			<tr>
+				<p th:text="'First Name: ' + ${e.firstName}"></p>
+			</tr>
+			<tr>
+				<p th:text="'Last Name: ' + ${e.lastName}"></p>
+			</tr>
+			<tr>
+				<p th:text="'Email: ' + ${e.email}"></p>
+			</tr>
+			<tr>
+				<p th:text="'Designation: ' + ${e.designation}"></p>
+			</tr>
+			<tr>
+				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8AJM9wkP__z2M-hovSAWcTb_9XJ6smy3NKw&usqp=CAU"
+					alt="Profile Pic" style="width: 200px; height: 200px; border: 1px solid #ccc; border-radius: 5px;">
+			</tr>
+		</div>
+
+
+
+	</div>
+	<!--Footer -->
+	<div class="footer">
+		<p>&copy; 2023 Mentor Mate</p>
+	</div>
+
+	<script>
+
+		// Function to open the ADD OKRs popup
+		function openOKRsPopup() {
+			document.getElementById('okrsModal').style.display = 'block';
+			document.getElementById('blurBackgroundOKRs').style.display = 'block';
+
+
+			// Add event listener to close the popup when clicking outside
+			window.addEventListener('click', function (event) {
+				if (event.target === document.getElementById('blurBackgroundOKRs')) {
+					closeOKRsPopup();
+				}
+			});
+		}
+
+		// Function to close the ADD OKRs popup
+		function closeOKRsPopup() {
+
+			document.getElementById('okrsModal').style.display = 'none';
+			document.getElementById('blurBackgroundOKRs').style.display = 'none';
+			document.getElementById('objective').value = '';
+			document.getElementById('keyResult1').value = '';
+			document.getElementById('keyResult2').value = '';
+		}
+
+		// Add click event listener to the close button (cross mark)
+		document.getElementById('okrsModalCloseBtn').addEventListener('click', closeOKRsPopup);
+		// Get the pop-up
+		var profile = document.getElementById("myProfile");
+
+		// Get the button that opens the pop-up
+		var btn = document.getElementById("profileBtn");
+
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks the button, open the pop-up
+		btn.onclick = function () {
+			profile.style.display = "block";
+		}
+
+
+		// Get the close button within the profile pop-up
+		var closeProfileBtn = profile.querySelector(".close");
+
+		// Add click event listener to the close button
+		closeProfileBtn.addEventListener("click", function () {
+			profile.style.display = "none";
+		});
+
+		document.addEventListener("DOMContentLoaded", function () {
+			profile.style.display = "none";
+		});
+
+		document.querySelectorAll('.mentee-link').forEach(function (link) {
+			link.addEventListener('click', function (event) {
+				event.preventDefault();
+				var menteeId = link.getAttribute('data-menteeid');
+				const menteeIdField = document.querySelector('input[name="menteeId"]');
+				menteeIdField.value = menteeId;
+				// AJAX request to fetch mentee details
+				fetch('/mentor/mentee/' + menteeId)
+					.then(response => response.json())
+					.then(data => {
+						// Update the details container with mentee information
+						//	document.getElementById('menteeProfilePic').src = 'data:image/png;base64,' + data.profilePicture; 
+						document.getElementById('menteeFirstName').innerText = 'First Name: ' + data.firstName;
+						document.getElementById('menteeLastName').innerText = 'Last Name: ' + data.lastName;
+						document.getElementById('menteeEmail').innerText = 'Email: ' + data.email;
+						document.getElementById('menteeDesignation').innerText = 'Designation: ' + data.designation;
+						// Display the mentee details container
+						document.getElementById('menteeDetailsContainer').style.display = 'block';
+						const objectivesContainer = document.getElementById('objectivesContainer');
+						objectivesContainer.innerHTML = ''; // Clear previous objectives
+
+						// Display each objective with its key results
+						data.objectives.forEach(okr => {
+							const objectiveElement = document.createElement('p');
+							objectiveElement.textContent = 'Objective: ' + okr.objective;
+							objectivesContainer.appendChild(objectiveElement);
+
+							const keyResultsList = document.createElement('ol');
+							okr.keyResults.forEach(keyResult => {
+								const keyResultElement = document.createElement('li');
+								keyResultElement.textContent = '- ' + keyResult;
+								keyResultsList.appendChild(keyResultElement);
+							});
+							objectivesContainer.appendChild(keyResultsList);
+						});
+					});
+			});
+		});
+
+		// Close the mentee details container
+		document.getElementById('closeDetailsBtn').addEventListener('click', function () {
+			document.getElementById('menteeDetailsContainer').style.display = 'none';
+		});
+
+	</script>
+
+</body>

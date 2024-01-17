@@ -1,0 +1,134 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Arial', sans-serif;
+	background-image: url('../css/img-bg4.jpg');
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.login {
+	width: 380px;
+	background: rgb(192, 192, 192, 0.8);
+	padding: 40px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+	border-radius: 8px;
+	height: 400px;
+}
+
+.form-box {
+	text-align: center;
+
+}
+
+.toggle-btn {
+	padding: 10px 20px;
+	cursor: pointer;
+	font-size: 18px;
+	color: #fff;
+	background: linear-gradient(to right, #FFB6C1, #87CEFA);
+	border: none;
+	border-radius: 25px;
+	margin-bottom: 20px;
+}
+
+.checkbox-container {
+	display: flex;
+	align-items: center;
+}
+
+/* Style for the checkbox itself */
+.checkbox {
+	margin-right: 8px;
+}
+
+/* Style for the label text */
+.checkbox-label {
+	font-family: 'Arial', sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+
+
+.inline-elements-container {
+	display: flex;
+	align-items: center;
+}
+
+/* Style for the checkbox container */
+.checkbox-container {
+	margin-right: 20px;
+}
+
+/* Style for the forgot password link */
+.forgot-password-link {
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+/* Hover effect for the link */
+.forgot-password-link:hover {
+	text-decoration: underline;
+}
+
+.input-group {
+	text-align: left;
+}
+
+.input-field {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+.submit-btn {
+	width: 100%;
+	padding: 10px;
+	color: #fff;
+	background: rgb(128, 0, 64, 0.5);
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	align-items: center;
+	text-align: center;
+}
+
+.submit-btn:hover {
+	background: #219f50;
+}
+
+.message {
+	margin-bottom: 15px;
+	font-weight: bold;
+}
+
+.message.error {
+	color: #e74c3c;
+}
+
+.message.success {
+	color: #2ecc71;
+}
+
+p {
+	color: rgb(255, 255, 255);
+	font-size: 15px;
+}
+
+a {
+	color: rgb(128, 0, 128);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
