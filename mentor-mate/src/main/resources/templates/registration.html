@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<!-- Meta tags for character set, compatibility, and viewport -->
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Title and stylesheet link -->
+	<title>Registration</title>
+	<link rel="stylesheet" th:href="@{../css/style.css}">
+
+
+	<!-- Add a script section to enable/disable the button based on form validity -->
+	<script th:inline="javascript">
+		function updateSubmitButton() {
+
+			// Check form validity and enable/disable the submit button
+
+			var formValid = document.getElementById('registrationForm').checkValidity();
+			document.getElementById('submitButton').disabled = !formValid;
+		}
+	</script>
+
+</head>
+
+<body>
+	<div class="registration">
+		<div class="form-box">
+			<div class="button-box">
+
+				<h2> Sign up</h2>
+			</div>
+			<div class="message" th:if="${message != null}">
+				<!-- Display server-side message -->
+				[[${message}]]
+			</div>
+
+			<!-- Registration form -->
+			<form id="registrationForm" method="post" th:action="@{/registration}" th:object="${user}"
+				class="input-group" oninput="updateSubmitButton()">
+				<!-- Input fields for user information -->
+				<input type="text" class="input-field" id="firstName" name="firstName"
+
+					placeholder="FirstName*" required>
+				<input type="text" class="input-field" id="lastName" name="lastName" placeholder="LastName*"
+					th:required="required">
+				<input type="email" class="input-field" id="email" name="email" placeholder="Email*"
+					pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Enter a valid email address."
+					th:required="required">
+				<input type="password" class="input-field" id="password" name="password" placeholder="Password*"
+
+					pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+					title="Minimum eight characters, at least one uppercase letter, one lowercase letter, one number, and one special character"
+					required th:required="required">
+				<input type="password" class="input-field" id="confirmPassword" name="confirmPassword"
+					placeholder="Confirm Password*" required th:required="required">
+				<input type="text" class="input-field" id="designation" name="designation"
+					placeholder="Enter your Designation">
+				<!-- Dropdown for selecting user role -->
+				<select class="select-field" id="roles" name="roles" th:required="required">
+					<option value="">Select your role*</option>
+					<option value="MENTOR">MENTOR</option>
+					<option value="MENTEE">MENTEE</option>
+				</select>
+				<!-- Submit button -->
+				<button id="submitButton" type="submit" disabled>Sign up</button>
+				<h3 th:text="${message}"></h3>
+
+				<!-- Display error message if present -->
+				<div th:if="${error}" class="alert alert-danger" role="alert">
+					<p th:text="${error}"></p>
+				</div>
+
+				<!-- Link to login page -->
+				<p>Already have an account? <a th:href="@{/login}">Log in</a></p>
+			</form>
+		</div>
+	</div>
+
+</body>
+
+</html>

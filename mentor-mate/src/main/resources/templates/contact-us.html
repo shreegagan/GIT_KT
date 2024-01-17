@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Contact Us - Mentor Mate</title>
+	<link rel="stylesheet" th:href="@{../css/home.css}" />
+	<style>
+		body {
+			text-decoration: none;
+			background-color: rgb(211 222 213);
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.contact-us {
+			background-color: rgb(211 222 213);
+			padding: 190px;
+		}
+
+		.contact-us a {
+			text-decoration: none;
+		}
+
+		footer {
+			position: fixed;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Navigation Bar -->
+	<nav>
+		<ul>
+			<!-- Adding logo image here -->
+			<a class="navbar-title" href="/home"><img src="../css/logo-final1.png" alt="Logo"
+					style="height: 34px; border-radius: 35px;align-items: center;"></a>
+			<a class="navbar-title" href="/home"> <span class="first-letter1">M</span>ENTOR <span
+					class="first-letter2">M</span>ATE</a>
+			<li><strong>
+					<a th:href="@{/home}" class="active">Home</a>
+				</strong></li>
+		</ul>
+	</nav>
+	<!-- Contact Us Section -->
+	<section class="contact-us">
+		<h2>Contact Us</h2>
+		<p>Have questions or feedback? Reach out to our support team.</p>
+		<a href="/">Email: mentormate.help@gmail.com</a>
+		<p>Phone: +91 7026962117 </p>
+		<strong>MentorMate:</strong> <a href="/home" target="_blank"> Click on MentorMate</a>
+	</section>
+	<!-- Footer -->
+	<footer>
+		<p> 2024 MentorMate </p>
+	</footer>
+</body>
+
+</html>
