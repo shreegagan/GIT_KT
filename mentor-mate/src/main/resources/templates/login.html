@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Login</title>
+	<link rel="stylesheet" th:href="@{../css/styles.css}">
+</head>
+
+<body>
+	<div class="login">
+		<div class="form-box">
+			<div class="button-box">
+				<div id="btn"></div>
+				<h2> Log In</h2>
+			</div>
+			<div class="message" th:if="${param.error}" style="color: red;">
+				Invalid Username or Password
+			</div>
+			<div class="message" th:if="${param.logout}" style="color: green;">
+				Logout Successfuly
+			</div>
+			<div class="message" th:if="${param.message}" style="color: green;">
+				Registration Successfuly
+			</div>
+			<form th:action="@{/login}" method="post" class="input-group">
+				<input type="email" class="input-field" id="username" name="username" placeholder="Email" required>
+				<input type="password" class="input-field" id="password" name="password" placeholder="Password"
+					required>
+				<div class="inline-elements-container">
+					<label class="checkbox-container">
+						<input type="checkbox" class="checkbox" name="rememberMe">
+						<span class="checkbox-label">Remember Me</span>
+					</label>
+					<p>Forgot Password? <a href="/" class="forgot-password-link" th:href="@{/forgotPassword}">Forgot Password</a></p>
+				</div>
+				<button type="submit" class="submit-btn">Log in</button>
+				<!-- Check if user doesn't have an account -->
+				<p>Don't have an account? <a th:href="@{/registration}"><b>Sign up</b></a></p>
+			</form>
+		</div>
+	</div>
+
+<p>Don't have an account? <a th:href="@{/registration}"><b>Sign up</b></a></p>
+</body>
+
+</html>
